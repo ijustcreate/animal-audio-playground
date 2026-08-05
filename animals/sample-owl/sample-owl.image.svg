@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-labelledby="title description">
+  <title id="title">Signal Owl</title>
+  <description id="description">An original geometric amber owl on a dark museum display.</description>
+  <rect width="1200" height="900" fill="#10161b"/>
+  <path d="M0 735C210 650 340 705 520 665c194-43 352-7 680 71v164H0Z" fill="#18242b"/>
+  <g transform="translate(600 445)">
+    <path d="M-300-255-105-180 0-245l105 65 195-75-65 240 47 250-282 160-282-160 47-250Z" fill="#26343a" stroke="#e0a84f" stroke-width="16"/>
+    <path d="M-246-205-118-151-197-64Z" fill="#e0a84f" opacity=".78"/>
+    <path d="M246-205 118-151l79 87Z" fill="#e0a84f" opacity=".78"/>
+    <circle cx="-122" cy="-52" r="88" fill="#0a0f12" stroke="#f2cf78" stroke-width="17"/>
+    <circle cx="122" cy="-52" r="88" fill="#0a0f12" stroke="#f2cf78" stroke-width="17"/>
+    <circle cx="-122" cy="-52" r="24" fill="#f7e8aa"/>
+    <circle cx="122" cy="-52" r="24" fill="#f7e8aa"/>
+    <path d="M0-7 50 45 0 82-50 45Z" fill="#e0a84f"/>
+    <path d="M-185 111Q0 265 185 111L0 300Z" fill="#1b272d" stroke="#6b8188" stroke-width="11"/>
+    <path d="M-390 190h780" stroke="#63767c" stroke-width="20" stroke-linecap="round"/>
+  </g>
+  <g fill="#e0a84f" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle">
+    <text x="600" y="800" font-size="37" font-weight="700" letter-spacing="9">SYNTHETIC SAMPLE</text>
+    <text x="600" y="848" font-size="21" letter-spacing="4" opacity=".72">NO PHOTOGRAPH · NO RECORDED VOICE</text>
+  </g>
+</svg>

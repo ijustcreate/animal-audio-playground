@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Museum App Settings</title>
+    <link rel="stylesheet" href="./app-settings.css" />
+  </head>
+  <body>
+    <main class="window-shell">
+      <header class="window-head">
+        <div>
+          <p class="eyebrow">Settings And Debug</p>
+          <h1>App Control Room</h1>
+          <p class="window-subtitle">
+            Configure the live exhibit, inputs, and operator tools without burying the controls in one long scroll.
+          </p>
+        </div>
+        <div class="head-actions">
+          <span id="save-status" class="save-status">Loading...</span>
+          <button id="close-window" class="toolbar-button" type="button">Close</button>
+        </div>
+      </header>
+
+      <section class="mode-strip">
+        <div class="mode-strip-copy">
+          <p class="eyebrow">Mode</p>
+          <h2>Mode</h2>
+          <p>Choose the public-facing wall first, then tune titles, audio defaults, and inputs in the tabs below.</p>
+        </div>
+        <div class="mode-strip-fields">
+          <label class="field" title="TouchScreen keeps the richer interactive wall. Museum Display simplifies the wall to one round sound button under each animal image.">
+            <span>Mode</span>
+            <select name="uiMode">
+              <option value="touchscreen">TouchScreen</option>
+              <option value="museum-display">Museum Display</option>
+            </select>
+          </label>
+          <label id="touchscreen-mode-field" class="field" title="Only used in TouchScreen mode. Dual keeps separate sound and facts buttons. Single combines them into one main button.">
+            <span>TouchScreen Buttons</span>
+            <select name="wallButtonMode">
+              <option value="dual">Dual Button Wall</option>
+              <option value="single">Single Button Wall</option>
+            </select>
+          </label>
+        </div>
+      </section>
+
+      <section class="tabs-shell">
+        <nav class="settings-tabs" aria-label="Settings Sections" role="tablist">
+          <button class="tab-button is-active" type="button" data-tab="titles">Titles And Window</button>
+          <button class="tab-button" type="button" data-tab="audio">Audio Defaults</button>
+          <button class="tab-button" type="button" data-tab="inputs">Keyboard And Xbox</button>
+          <button class="tab-button" type="button" data-tab="notes">Notes And Files</button>
+        </nav>
+
+        <section class="tab-panels">
+          <section class="tab-panel is-active" data-panel="titles">
+            <div class="panel-section">
+              <div class="section-head">
+                <p class="eyebrow">Titles And Window</p>
+                <h2>Main Wall Text</h2>
+                <p>These fields shape the title area and launch size of the museum wall.</p>
+              </div>
+              <div class="form-grid">
+                <label class="field" title="The title shown in the desktop window bar.">
+                  <span>Window Title</span>
+                  <input name="windowTitle" type="text" />
+                </label>
+                <label class="field" title="The large headline at the top of the wall.">
+                  <span>Header Title</span>
+                  <input name="headerTitle" type="text" />
+                </label>
+                <label class="field" title="The small museum label above the main headline.">
+                  <span>Header Subtitle</span>
+                  <input name="headerSubtitle" type="text" />
+                </label>
+                <label class="field" title="The resting message announced when nothing is playing.">
+                  <span>Idle Message</span>
+                  <input name="idleStatusMessage" type="text" />
+                </label>
+                <label class="field" title="Starting window width in pixels when the app opens.">
+                  <span>Window Width</span>
+                  <input name="windowWidth" type="number" min="900" step="1" />
+                </label>
+                <label class="field" title="Starting window height in pixels when the app opens.">
+                  <span>Window Height</span>
+                  <input name="windowHeight" type="number" min="500" step="1" />
+                </label>
+              </div>
+            </div>
+          </section>
+
+          <section class="tab-panel" data-panel="audio">
+            <div class="panel-section">
+              <div class="section-head">
+                <p class="eyebrow">Audio Defaults</p>
+                <h2>Global Sound Behavior</h2>
+                <p>These settings shape how every animal starts, ends, and feels across the whole exhibit.</p>
+              </div>
+              <div class="form-grid">
+                <label class="field" title="Overall loudness multiplier for every sound in the wall.">
+                  <span>Master Gain</span>
+                  <input name="masterGain" type="number" min="0" max="3" step="0.05" />
+                </label>
+                <label class="field" title="How quickly sounds reach full volume when they begin.">
+                  <span>Default Attack (ms)</span>
+                  <input name="defaultAttackMs" type="number" min="0" step="1" />
+                </label>
+                <label class="field" title="How long sounds take to fade out after release.">
+                  <span>Default Release (ms)</span>
+                  <input name="defaultReleaseMs" type="number" min="0" step="1" />
+                </label>
+                <label class="field" title="If nobody answers in time, guessing mode exits automatically after this many seconds.">
+                  <span>Guessing Timeout (sec)</span>
+                  <input name="guessingIdleTimeoutSec" type="number" min="5" step="1" />
+                </label>
+                <label class="toggle-field" title="Load sound files into memory at launch for faster first playback.">
+                  <span>Preload Audio</span>
+                  <input name="preloadAudio" type="checkbox" />
+                </label>
+                <label class="toggle-field" title="Play a cheerful celebration tone when a visitor guesses the right animal.">
+                  <span>Cheery Success Sound</span>
+                  <input name="guessingSuccessChimeEnabled" type="checkbox" />
+                </label>
+              </div>
+            </div>
+          </section>
+
+          <section class="tab-panel" data-panel="inputs">
+            <div class="panel-section">
+              <div class="section-head">
+                <p class="eyebrow">Keyboard And Xbox</p>
+                <h2>Input Mapping</h2>
+                <p>Keep the control surface compact: turn inputs on, choose a specific animal, then map only the actions you need to see.</p>
+              </div>
+
+              <div class="toggle-grid compact-toggle-grid">
+                <label class="toggle-field" title="Turn keyboard and controller-triggered playback on or off.">
+                  <span>Interaction Enabled</span>
+                  <input name="inputInteractionsEnabled" type="checkbox" />
+                </label>
+                <label class="toggle-field" title="Allow the wall to listen for Xbox-style controller buttons.">
+                  <span>Xbox Mapping Enabled</span>
+                  <input name="controllerMappingEnabled" type="checkbox" />
+                </label>
+                <label class="toggle-field" title="Show the assigned key or controller badge on each playback button.">
+                  <span>Show Hotkey Badges</span>
+                  <input name="showInputBadges" type="checkbox" />
+                </label>
+              </div>
+
+              <div class="inputs-layout">
+                <section class="subpanel">
+                  <div class="section-head compact-head">
+                    <h3>Controller Deck</h3>
+                    <p>Click a controller field below, then press the next Xbox button you want to assign.</p>
+                  </div>
+                  <div id="controller-visual" class="controller-visual"></div>
+                </section>
+
+                <section class="subpanel">
+                  <div class="section-head compact-head">
+                    <h3>Current Playback Buttons</h3>
+                    <p>Use the dropdown to focus on one animal instead of scrolling through the whole exhibit.</p>
+                  </div>
+                  <div class="mapping-toolbar">
+                    <label class="field compact-field" title="Filter the action list to one animal or show every active action.">
+                      <span>Show Bindings For</span>
+                      <select id="binding-filter"></select>
+                    </label>
+                  </div>
+                  <div id="action-bindings-list" class="mapping-list"></div>
+                </section>
+              </div>
+            </div>
+          </section>
+
+          <section class="tab-panel" data-panel="notes">
+            <div class="panel-section">
+              <div class="section-head">
+                <p class="eyebrow">Notes And Files</p>
+                <h2>Operator Support</h2>
+                <p>Store setup instructions and keep the two most important file shortcuts nearby for staff.</p>
+              </div>
+
+              <div class="notes-helper">
+                <article>
+                  <strong>Helpful note ideas</strong>
+                  <p>Trigger wiring, startup order, spare mic location, audio interface settings, and where guest recordings are stored.</p>
+                </article>
+                <article>
+                  <strong>When this pays off</strong>
+                  <p>Morning setup, troubleshooting in front of guests, and handing the exhibit to another staff member or venue.</p>
+                </article>
+              </div>
+
+              <label class="field" title="Internal notes for setup, install instructions, or debug reminders.">
+                <span>Notes</span>
+                <textarea id="settings-body" rows="10"></textarea>
+              </label>
+
+              <div class="debug-actions">
+                <button id="open-animals-folder" class="toolbar-button" type="button">Open Animals Folder</button>
+                <button id="open-app-settings-file" class="toolbar-button" type="button">Open App Settings File</button>
+              </div>
+            </div>
+          </section>
+        </section>
+      </section>
+    </main>
+
+    <script src="./localization.js"></script>
+    <script src="./app-settings.js"></script>
+  </body>
+</html>

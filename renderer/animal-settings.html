@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Animal Settings</title>
+    <link rel="stylesheet" href="./animal-settings.css" />
+  </head>
+  <body>
+    <main class="window-shell">
+      <header class="window-head">
+        <div>
+          <p class="eyebrow">Animal Settings</p>
+          <h1 id="window-title">Animal</h1>
+          <p class="window-subtitle">
+            This window saves live so you can keep the museum wall visible while you tune this card.
+          </p>
+        </div>
+        <div class="head-actions">
+          <span id="save-status" class="save-status">Loading...</span>
+          <button id="jump-to-facts" class="toolbar-button" type="button">Record New Animal Fact</button>
+          <button id="close-window" class="toolbar-button" type="button">Close</button>
+        </div>
+      </header>
+
+      <section class="layout">
+        <section class="panel preview-panel">
+          <div class="panel-title">
+            <p class="eyebrow">Preview</p>
+            <h2>Card Image</h2>
+          </div>
+          <div class="preview-card">
+            <img id="preview-image" alt="" />
+          </div>
+          <div class="preview-meta">
+            <strong id="preview-name">Animal Name</strong>
+            <span id="preview-science">Scientific Name</span>
+          </div>
+          <section class="card-layout-panel preview-card-layout">
+            <div class="panel-title">
+              <p class="eyebrow">Display</p>
+              <h2>Card Layout</h2>
+            </div>
+            <div class="form-grid">
+              <label class="field" title="The name shown on the museum wall and in the info window.">
+                <span>Display Name</span>
+                <input id="display-name" type="text" />
+              </label>
+              <label class="field" title="Left-to-right position in the 1 by 8 exhibit row.">
+                <span>Sort Order</span>
+                <input id="sort-order" type="number" min="1" step="1" />
+              </label>
+              <label class="field" title="Choose the highlight color used on the card glow and buttons.">
+                <span>Accent Color</span>
+                <div class="color-row">
+                  <input id="accent-color-picker" type="color" />
+                  <input id="accent-color-hex" type="text" />
+                </div>
+              </label>
+              <label class="field field-toggle-inline" title="Hide this animal from the main wall without deleting its files.">
+                <span>Enabled</span>
+                <input id="enabled-toggle" class="checkbox" type="checkbox" />
+              </label>
+              <label class="field" title="Pick an easy image crop anchor for the square photo.">
+                <span>Crop Preset</span>
+                <select id="crop-preset">
+                  <option value="50% 50%">Center</option>
+                  <option value="50% 15%">Top</option>
+                  <option value="50% 85%">Bottom</option>
+                  <option value="15% 50%">Left</option>
+                  <option value="85% 50%">Right</option>
+                  <option value="15% 15%">Top Left</option>
+                  <option value="85% 15%">Top Right</option>
+                  <option value="15% 85%">Bottom Left</option>
+                  <option value="85% 85%">Bottom Right</option>
+                  <option value="manual">Manual</option>
+                </select>
+              </label>
+              <label class="field" title="Fine-tune the horizontal crop position when preset mode is set to Manual.">
+                <span>Crop X</span>
+                <input id="crop-x" type="range" min="0" max="100" step="1" />
+              </label>
+              <label class="field" title="Fine-tune the vertical crop position when preset mode is set to Manual.">
+                <span>Crop Y</span>
+                <input id="crop-y" type="range" min="0" max="100" step="1" />
+              </label>
+              <label class="field" title="Current image crop position that will be saved into the animal file.">
+                <span>Saved Crop Position</span>
+                <input id="crop-position-display" type="text" readonly />
+              </label>
+            </div>
+          </section>
+          <div class="media-actions">
+            <button id="open-animal-folder" class="toolbar-button" type="button">Open Animal Folder</button>
+            <button id="import-video-file" class="toolbar-button" type="button">Import Video File</button>
+            <button id="preview-video-button" class="toolbar-button" type="button">Play Video Preview</button>
+          </div>
+          <label class="field" title="Paste a YouTube video link for the more info window.">
+            <span>YouTube Video URL</span>
+            <input id="video-url" type="url" placeholder="https://www.youtube.com/watch?v=..." />
+          </label>
+          <video id="video-preview" controls preload="metadata"></video>
+          <iframe
+            id="video-preview-frame"
+            title="YouTube video preview"
+            loading="lazy"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen
+          ></iframe>
+        </section>
+
+        <section class="editor-column">
+          <section class="panel">
+            <div class="panel-title">
+              <p class="eyebrow">Science And Script</p>
+              <h2>About File</h2>
+            </div>
+            <div class="form-grid">
+              <label class="field" title="Common animal name used inside the recording script and info window.">
+                <span>Animal Name</span>
+                <input id="about-animal-name" type="text" />
+              </label>
+              <label class="field" title="Scientific name shown below the main name on the wall.">
+                <span>Scientific Name</span>
+                <input id="about-scientific-name" type="text" />
+              </label>
+              <label class="field field-full" title="Easy phonetic pronunciation for staff and narrators.">
+                <span>Scientific Pronunciation</span>
+                <input id="about-scientific-pronunciation" type="text" />
+              </label>
+              <label class="field field-full" title="One fact per line for the narration window and info screen.">
+                <span>Key Facts</span>
+                <textarea id="about-key-facts" rows="5"></textarea>
+              </label>
+              <label class="field field-full" title="One science point per line for the narration window and info screen.">
+                <span>Science Highlights</span>
+                <textarea id="about-science-highlights" rows="4"></textarea>
+              </label>
+              <label class="field field-full" title="A curiosity question aimed at the youngest visitors.">
+                <span>Curious Question Ages 3 To 5</span>
+                <input id="about-question-3-5" type="text" />
+              </label>
+              <label class="field field-full" title="A curiosity question aimed at kids ages 5 to 8.">
+                <span>Curious Question Ages 5 To 8</span>
+                <input id="about-question-5-8" type="text" />
+              </label>
+              <label class="field field-full" title="A deeper science question aimed at older kids ages 8 to 13.">
+                <span>Curious Question Ages 8 To 13</span>
+                <input id="about-question-8-13" type="text" />
+              </label>
+              <label class="field field-full" title="Suggested facts script used when staff record a new Creature Facts track.">
+                <span>Suggested Script</span>
+                <textarea id="about-body" rows="9"></textarea>
+              </label>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-title">
+              <p class="eyebrow">Buttons</p>
+              <h2>Audio Playback</h2>
+            </div>
+            <div id="clip-cards" class="clip-cards"></div>
+          </section>
+        </section>
+      </section>
+
+      <input id="audio-import-input" type="file" accept="audio/*" hidden />
+      <input id="video-import-input" type="file" accept="video/*" hidden />
+
+      <dialog id="prompt-dialog" class="prompt-dialog">
+        <form method="dialog" class="prompt-form">
+          <h3 id="prompt-title">Prompt</h3>
+          <p id="prompt-copy"></p>
+          <input id="prompt-input" type="text" />
+          <div class="dialog-actions">
+            <button value="cancel" class="toolbar-button" type="submit">Cancel</button>
+            <button value="confirm" class="toolbar-button primary" type="submit">Continue</button>
+          </div>
+        </form>
+      </dialog>
+
+      <script src="./animal-settings.js"></script>
+    </main>
+  </body>
+</html>

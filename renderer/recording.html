@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Record Animal Audio</title>
+    <link rel="stylesheet" href="./recording.css" />
+  </head>
+  <body>
+    <main class="recording-shell">
+      <header class="recording-header">
+        <div>
+          <p id="recording-kicker" class="eyebrow">Museum Recorder</p>
+          <h1 id="recording-title">Record Audio</h1>
+          <p id="recording-subtitle" class="recording-subtitle">
+            Uses the computer's default microphone unless you choose a different input.
+          </p>
+        </div>
+        <button id="close-window" class="toolbar-button" type="button">Close</button>
+      </header>
+
+      <section class="recording-grid">
+        <section class="panel-card prompt-card">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Animal Prompt</p>
+              <h2 id="prompt-panel-title">Facts And Science</h2>
+            </div>
+          </div>
+          <div class="prompt-feature-grid">
+            <div class="prompt-image-frame">
+              <img id="prompt-image" alt="" />
+            </div>
+            <div class="fact-columns">
+              <div class="fact-block">
+                <h3>Key Facts</h3>
+                <ul id="key-facts-list" class="fact-list"></ul>
+              </div>
+              <div class="fact-block">
+                <h3>Science Highlights</h3>
+                <ul id="science-list" class="fact-list"></ul>
+              </div>
+            </div>
+          </div>
+          <div class="question-grid">
+            <article class="question-block">
+              <span class="question-label">Ages 3 To 5</span>
+              <p id="question-3-5" class="question-text"></p>
+            </article>
+            <article class="question-block">
+              <span class="question-label">Ages 5 To 8</span>
+              <p id="question-5-8" class="question-text"></p>
+            </article>
+            <article class="question-block">
+              <span class="question-label">Ages 8 To 13</span>
+              <p id="question-8-13" class="question-text"></p>
+            </article>
+          </div>
+        </section>
+
+        <section class="panel-card controls-card">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Recording Setup</p>
+              <h2>Input And Capture</h2>
+            </div>
+            <span id="timer-pill" class="timer-pill">00:00</span>
+          </div>
+
+          <div class="controls-grid">
+            <label class="field">
+              <span>Clip Label</span>
+              <input id="clip-label" type="text" readonly />
+            </label>
+            <label class="field">
+              <span id="narrator-label">Voice Name</span>
+              <input id="narrator-name" type="text" placeholder="Museum Guest" />
+            </label>
+            <div class="mic-row field-full">
+              <label class="field">
+                <span>Microphone Input</span>
+                <select id="audio-input-select"></select>
+              </label>
+              <button id="refresh-inputs" class="secondary-button mic-refresh" type="button">Refresh Inputs</button>
+            </div>
+          </div>
+
+          <p id="mode-note" class="hint-text"></p>
+          <p id="mic-status" class="hint-text">
+            The recorder will use the system default microphone unless you select another device.
+          </p>
+
+          <div class="button-row">
+            <button id="play-reference" class="secondary-button" type="button">Play Reference Sound</button>
+            <button id="start-recording" class="primary-button" type="button">Start Recording</button>
+            <button id="stop-recording" class="secondary-button" type="button" disabled>Stop Recording</button>
+            <button id="save-recording" class="secondary-button" type="button" disabled>Save Recording</button>
+          </div>
+
+          <div class="preview-block">
+            <span class="preview-label">Preview</span>
+            <audio id="audio-preview" controls></audio>
+          </div>
+        </section>
+
+        <section class="panel-card script-card">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Reading Prompt</p>
+              <h2 id="script-title">Read This Into The Mic</h2>
+            </div>
+            <button id="teleprompter-toggle" class="secondary-button" type="button">Teleprompter On</button>
+          </div>
+          <p class="hint-text">
+            Large type keeps the script readable from farther back. Turn on teleprompter mode to pan and highlight the words while recording.
+          </p>
+          <div id="script-scroller" class="script-scroller">
+            <div id="script-body" class="script-body" aria-live="polite"></div>
+          </div>
+        </section>
+      </section>
+
+      <dialog id="narrator-dialog" class="prompt-dialog">
+        <form method="dialog" class="prompt-form">
+          <h3>Add A Voice Name?</h3>
+          <p>
+            This Creature Facts recording is about to save as Museum Guest. Add a voice name now, or continue and keep Museum Guest.
+          </p>
+          <input id="narrator-dialog-input" type="text" placeholder="Enter a voice name" />
+          <div class="dialog-actions">
+            <button id="narrator-dialog-cancel" value="cancel" class="toolbar-button" type="submit">Cancel</button>
+            <button id="narrator-dialog-guest" value="guest" class="toolbar-button" type="submit">Continue As Museum Guest</button>
+            <button id="narrator-dialog-confirm" value="confirm" class="toolbar-button primary" type="submit">Use This Name</button>
+          </div>
+        </form>
+      </dialog>
+    </main>
+
+    <script src="./recording.js"></script>
+  </body>
+</html>

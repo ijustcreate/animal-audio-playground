@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Museum Animal Sound Wall</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="topbar">
+        <div class="title-block">
+          <p id="header-subtitle" class="eyebrow">Interactive Museum Display</p>
+          <h1 id="header-title">Press And Hold To Hear The Animal</h1>
+        </div>
+        <div class="language-block">
+          <label class="language-picker" for="language-select">
+            <span id="language-label" class="status-pill-label">Language</span>
+            <select id="language-select"></select>
+          </label>
+        </div>
+        <div class="topbar-actions">
+          <button id="guessing-toggle" class="toolbar-button accent-button" type="button">
+            Who Made That Sound?
+          </button>
+          <button id="settings-toggle" class="toolbar-button" type="button">Settings</button>
+        </div>
+      </header>
+
+      <section id="animal-row" class="animal-row" aria-label="Animal sound wall"></section>
+    </main>
+    <div id="status-live" class="sr-only" aria-live="polite">Loading animal library...</div>
+
+    <script src="./localization.js"></script>
+    <script src="./main-wall.js"></script>
+  </body>
+</html>

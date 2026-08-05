@@ -1,0 +1,23 @@
+{
+  "name": "animal-audio-playground",
+  "version": "1.0.0",
+  "description": "A local-first museum animal sound wall with a privacy-safe synthetic sample.",
+  "main": "electron/main.js",
+  "scripts": {
+    "postinstall": "install-electron",
+    "start": "electron .",
+    "dev": "electron .",
+    "electron:install": "install-electron",
+    "sample:generate": "node tools/generate-sample-media.mjs",
+    "check": "node tools/check-source.mjs && node tools/verify-publication.mjs"
+  },
+  "author": "",
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "electron": "^43.3.0"
+  },
+  "dependencies": {
+    "gray-matter": "^4.0.3",
+    "ytdl-core": "^4.11.5"
+  }
+}

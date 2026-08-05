@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Animal Info</title>
+    <link rel="stylesheet" href="./animal-info.css" />
+  </head>
+  <body>
+    <main class="window-shell">
+      <header class="window-head">
+        <div>
+          <p id="window-eyebrow" class="eyebrow">Detailed Animal View</p>
+          <h1 id="animal-name">Animal</h1>
+          <p id="scientific-line" class="scientific-line"></p>
+        </div>
+        <button id="close-window" class="toolbar-button" type="button">Close</button>
+      </header>
+
+      <section class="content-scroll">
+        <section class="info-layout">
+          <section class="hero-column">
+            <section class="hero-card">
+              <div class="hero-media">
+                <img id="hero-image" alt="" />
+                <video id="hero-video" preload="metadata" playsinline hidden></video>
+                <div class="hero-sheen" aria-hidden="true"></div>
+              </div>
+              <div class="hero-actions">
+                <button id="play-video-button" class="toolbar-button primary" type="button">
+                  Play Video
+                </button>
+                <p id="video-note" class="muted"></p>
+              </div>
+            </section>
+
+            <section class="panel">
+              <div class="panel-title">
+                <div>
+                  <p id="unforgettable-eyebrow" class="eyebrow">Big Wow Fact</p>
+                  <h2 id="unforgettable-title">One Unforgettable Fact</h2>
+                </div>
+              </div>
+              <p id="unforgettable-fact" class="script-body"></p>
+            </section>
+
+            <section class="panel">
+              <div class="panel-title">
+                <div>
+                  <p id="size-eyebrow" class="eyebrow">Size Compare</p>
+                  <h2 id="size-title">How Big Is It?</h2>
+                </div>
+              </div>
+              <div id="size-buttons" class="size-buttons"></div>
+              <p id="size-detail" class="script-body"></p>
+              <p id="size-note" class="muted"></p>
+            </section>
+          </section>
+
+          <section class="info-column">
+            <section class="panel about-panel">
+              <div class="panel-title">
+                <div>
+                  <p id="about-eyebrow" class="eyebrow">About</p>
+                  <h2 id="about-title">About This Animal</h2>
+                </div>
+              </div>
+              <p id="about-body" class="script-body"></p>
+            </section>
+
+            <section class="panel two-column">
+              <div>
+                <div class="panel-title">
+                  <div>
+                    <p id="keyfacts-eyebrow" class="eyebrow">Key Facts</p>
+                    <h2 id="keyfacts-title">What To Notice</h2>
+                  </div>
+                </div>
+                <ul id="key-facts-list" class="detail-list"></ul>
+              </div>
+              <div>
+                <div class="panel-title">
+                  <div>
+                    <p id="science-eyebrow" class="eyebrow">How It Works</p>
+                    <h2 id="science-title">Science In Action</h2>
+                  </div>
+                </div>
+                <ul id="science-list" class="detail-list"></ul>
+              </div>
+            </section>
+
+            <section class="panel">
+              <div class="panel-title">
+                <div>
+                  <p id="questions-eyebrow" class="eyebrow">Curious Questions</p>
+                </div>
+              </div>
+              <div class="question-grid">
+                <article>
+                  <strong id="question-3-5-label">Ages 3 To 5</strong>
+                  <p id="question-3-5"></p>
+                </article>
+                <article>
+                  <strong id="question-5-8-label">Ages 5 To 8</strong>
+                  <p id="question-5-8"></p>
+                </article>
+                <article>
+                  <strong id="question-8-13-label">Ages 8 To 13</strong>
+                  <p id="question-8-13"></p>
+                </article>
+              </div>
+            </section>
+          </section>
+        </section>
+      </section>
+    </main>
+
+    <script src="./localization.js"></script>
+    <script src="./animal-info.js"></script>
+  </body>
+</html>
