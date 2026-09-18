@@ -102,13 +102,29 @@ button:disabled{opacity:.35;cursor:default}
   opacity:0;transform:translateY(8px);pointer-events:none;transition:.2s} #updateToast.show{opacity:1;transform:translateY(0)}
 #updateToast strong{display:block;font-size:11px;margin-bottom:2px}
 @media(max-width:720px){#readout{min-width:0;width:58vw}.brand span,.micText,.speakerText,#legend{display:none}.micGlyph{width:48px;height:48px}.speakerGlyph{width:46px;height:74px}}
+
+#diagnosticsPanel{position:fixed;inset:5vh 5vw;z-index:80;display:none;border-radius:22px;padding:16px;background:rgba(9,12,18,.97);backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.13);box-shadow:0 30px 100px rgba(0,0,0,.65);overflow:hidden}
+#diagnosticsPanel.open{display:grid;grid-template-rows:auto auto 1fr;gap:12px}
+.diagHead{display:flex;align-items:flex-start;justify-content:space-between;gap:14px}.diagHead h2{margin:0;font-size:18px;letter-spacing:-.02em}.diagHead p{margin:3px 0 0;color:var(--muted);font-size:10px;line-height:1.45;max-width:72ch}
+.diagActions{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}.diagActions button{padding:7px 10px;font-size:10px}#diagCaptureBtn.on{background:rgba(255,79,123,.15);color:#ff9ab4;border-color:rgba(255,79,123,.36)}
+.diagSummary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}.diagCard{background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.075);border-radius:12px;padding:9px 10px;min-height:58px}
+.diagCard b{display:block;font-size:9px;letter-spacing:.09em;text-transform:uppercase;color:#8190a4;margin-bottom:4px}.diagCard strong{font-size:14px}.diagCard span{display:block;font-size:9px;color:var(--muted);line-height:1.35;margin-top:2px;word-break:break-word}
+.diagBody{display:grid;grid-template-columns:minmax(0,1.75fr) minmax(280px,.75fr);gap:10px;min-height:0}.diagTableWrap{border:1px solid rgba(255,255,255,.08);border-radius:12px;overflow:auto;min-height:0;background:rgba(0,0,0,.13)}
+#diagTable{width:100%;border-collapse:collapse;font-size:9px}#diagTable th{position:sticky;top:0;background:#10151e;color:#8491a4;text-align:left;padding:7px 8px;font-size:8px;letter-spacing:.07em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,.08);z-index:1}
+#diagTable td{padding:7px 8px;border-bottom:1px solid rgba(255,255,255,.045);white-space:nowrap;color:#cbd4e2}#diagTable tr{cursor:pointer}#diagTable tbody tr:hover{background:rgba(255,255,255,.035)}#diagTable tr.selected{background:rgba(130,180,255,.09)}
+.diagInspector{border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:11px;overflow:auto;background:rgba(255,255,255,.025)}.diagInspector h3{margin:0 0 3px;font-size:12px}.diagInspector .help{font-size:9px;color:var(--muted);line-height:1.4;margin-bottom:9px}
+.diagField{margin:9px 0}.diagField label{display:block;font-size:9px;font-weight:800;color:#aeb9c8;margin-bottom:4px}.diagField select,.diagField input,.diagField textarea{width:100%;border:1px solid rgba(255,255,255,.11);background:rgba(255,255,255,.045);color:#eef4ff;border-radius:8px;padding:7px 8px;font-size:10px;outline:none}
+.diagField textarea{height:58px;resize:vertical}.diagField option{background:#111722}#diagFeatureDump{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:8px;color:#91a0b5;white-space:pre-wrap;line-height:1.45;background:rgba(0,0,0,.2);border-radius:8px;padding:8px}
+.diagInspector .row{display:flex;gap:6px;flex-wrap:wrap}.diagInspector .row button{padding:7px 9px;font-size:9px}#diagPrivacy{font-size:8px;color:#647185;line-height:1.4;margin-top:10px;padding-top:9px;border-top:1px solid rgba(255,255,255,.07)}
+@media(max-width:900px){#diagnosticsPanel{inset:2vh 2vw}.diagSummary{grid-template-columns:repeat(2,minmax(0,1fr))}.diagBody{grid-template-columns:1fr}.diagInspector{max-height:36vh}}
+
 </style>
 </head>
 <body>
 <canvas id="c"></canvas>
 
 <div id="hud" style="display:none">
-  <div class="brand glass"><span class="dot"></span><div><b>Reality Filter <em>v2.4</em></b><span>Sound events → visible waves</span></div></div>
+  <div class="brand glass"><span class="dot"></span><div><b>Reality Filter <em>v2.5</em></b><span>Sound events → visible waves</span></div></div>
   <div id="readout" class="glass">
     <div id="soundName">Listening…</div><div id="meta">—</div>
     <div class="bands"><div class="band low"><i id="lowBar"></i></div><div class="band mid"><i id="midBar"></i></div><div class="band high"><i id="highBar"></i></div></div>
@@ -126,7 +142,7 @@ button:disabled{opacity:.35;cursor:default}
   <span><i style="background:var(--bell)"></i>bell / resonance</span><span><i style="background:var(--impact)"></i>impact</span>
 </div>
 
-<div id="utility" style="display:none"><button class="secondary" id="optionsBtn">Options</button><button class="secondary" id="updateBtn">↻ Refresh build</button></div>
+<div id="utility" style="display:none"><button class="secondary" id="optionsBtn">Options</button><button class="secondary" id="diagnosticsBtn">Diagnostics</button><button class="secondary" id="updateBtn">↻ Refresh build</button></div>
 <div id="controls" style="display:none"><button class="secondary" id="pauseBtn">Pause live</button><button class="secondary" id="labelsBtn">Hide labels</button><button class="secondary" id="fullBtn">Fullscreen</button><button class="secondary" id="restartBtn">Mic</button></div>
 <div id="pauseBadge" class="glass">Paused · inspect sound events</div>
 <div id="selectionHint">Drag around a sound · right-click for playback, tagging, and filtering</div>
@@ -162,6 +178,41 @@ button:disabled{opacity:.35;cursor:default}
   <div class="tagRow"><input id="tagNameInput" maxlength="32" placeholder="Name this source — e.g. Room Fan"><button id="tagSelectionBtn">Learn</button></div>
   <button class="ctx" id="hideSelectionBtn">Hide this learned source</button>
   <button class="ctx" id="clearSelectionBtn">Clear selection</button>
+</div>
+
+
+<div id="diagnosticsPanel">
+  <div class="diagHead">
+    <div><h2>Diagnostics / Training Lab</h2><p>Capture what the app guessed, the acoustic evidence behind that guess, and your correction. Feature data stays local until you copy or export it. Raw microphone audio is never added to the feedback packet automatically.</p></div>
+    <div class="diagActions">
+      <button class="secondary" id="diagCaptureBtn">● Start capture</button>
+      <button class="secondary" id="diagUseSelectionBtn">Use canvas selection</button>
+      <button class="secondary" id="diagCopyBtn">Copy report</button>
+      <button class="secondary" id="diagExportBtn">Download JSON</button>
+      <button class="secondary" id="diagClearBtn">Clear</button>
+      <button class="secondary" id="diagCloseBtn">Close</button>
+    </div>
+  </div>
+  <div class="diagSummary">
+    <div class="diagCard"><b>Session</b><strong id="diagSessionState">Not capturing</strong><span id="diagSessionMeta">0 events</span></div>
+    <div class="diagCard"><b>Audio input</b><strong id="diagAudioState">—</strong><span id="diagAudioMeta">Start the microphone first.</span></div>
+    <div class="diagCard"><b>Corrections</b><strong id="diagCorrectionState">0</strong><span id="diagCorrectionMeta">No labels supplied yet.</span></div>
+    <div class="diagCard"><b>Room model</b><strong id="diagRoomState">Uncalibrated</strong><span id="diagRoomMeta">No learned source summary.</span></div>
+  </div>
+  <div class="diagBody">
+    <div class="diagTableWrap"><table id="diagTable"><thead><tr><th>#</th><th>App guess</th><th>Your label</th><th>Duration</th><th>Center</th><th>Pitch</th><th>Transient</th><th>Flatness</th><th>Ambient match</th></tr></thead><tbody id="diagTableBody"></tbody></table></div>
+    <div class="diagInspector">
+      <h3 id="diagInspectorTitle">Select an event</h3><div class="help" id="diagInspectorHelp">Start capture, make sounds, then select a row. Corrections are the highest-value data for improving the classifier.</div>
+      <div class="diagField"><label>What was this actually?</label><select id="diagTruthLabel">
+        <option value="">Unreviewed</option><option value="correct">✓ App was correct</option><option value="bell">Bell / resonant strike</option><option value="voice">Voice / sung vowel</option><option value="impact">Impact / clatter</option><option value="low">Low thump / rumble</option><option value="fan">Fan / airflow / HVAC</option><option value="music-note">Musical note</option><option value="music-chord">Musical chord</option><option value="other">Other</option>
+      </select></div>
+      <div class="diagField"><label>Expected note / chord, if relevant</label><input id="diagExpectedMusic" placeholder="e.g. A4, D4, C major"></div>
+      <div class="diagField"><label>Observation</label><textarea id="diagUserNote" placeholder="e.g. brass hand bell; strike was right but ringing tail became voice"></textarea></div>
+      <div class="row"><button class="secondary" id="diagApplyBtn">Save correction</button><button class="secondary" id="diagFindCanvasBtn">Select on canvas</button><button class="secondary" id="diagPlayBtn">▶ Play if still buffered</button><button class="secondary" id="diagWavBtn">Download selected WAV</button></div>
+      <div class="diagField"><label>Classifier evidence</label><div id="diagFeatureDump">No event selected.</div></div>
+      <div id="diagPrivacy">Feedback JSON contains build/environment metadata, classifier features, your corrections, settings, calibration summary, and learned room-source fingerprints. It does <b>not</b> contain microphone audio. WAV export is a separate explicit action.</div>
+    </div>
+  </div>
 </div>
 
 <div id="updateToast" class="glass"><strong id="updateTitle">Update</strong><span id="updateMessage"></span></div>
@@ -483,6 +534,62 @@ tagSelectionBtn.onclick=()=>{const name=tagNameInput.value.trim(),fp=selectionFi
   saveAmbientProfiles();renderAmbientProfiles();for(const ev of selectedEvents())ev.ambientTag=name;tagNameInput.value='';showToast('Room source learned',`${name} can now be shown or hidden from Options.`,3200)};
 hideSelectionBtn.onclick=()=>{const fp=selectionFingerprint();if(!fp)return;const m=matchAmbient(fp);if(!m){showToast('Name it first','Use the field above to teach this sound as a room source.',3000);return}m.profile.hidden=true;saveAmbientProfiles();renderAmbientProfiles();for(const ev of selectedEvents())ev.hidden=true;showToast('Source hidden',`${m.profile.name} will still be recognized, but matching future events will not be drawn.`,3400)};
 clearSelectionBtn.onclick=()=>{events.forEach(e=>e.selected=false);closeContextMenu()};
+
+
+const diagnosticsBtn=$('diagnosticsBtn'),diagnosticsPanel=$('diagnosticsPanel');
+const diagCaptureBtn=$('diagCaptureBtn'),diagUseSelectionBtn=$('diagUseSelectionBtn'),diagCopyBtn=$('diagCopyBtn'),diagExportBtn=$('diagExportBtn'),diagClearBtn=$('diagClearBtn'),diagCloseBtn=$('diagCloseBtn');
+const diagSessionState=$('diagSessionState'),diagSessionMeta=$('diagSessionMeta'),diagAudioState=$('diagAudioState'),diagAudioMeta=$('diagAudioMeta'),diagCorrectionState=$('diagCorrectionState'),diagCorrectionMeta=$('diagCorrectionMeta'),diagRoomState=$('diagRoomState'),diagRoomMeta=$('diagRoomMeta');
+const diagTableBody=$('diagTableBody'),diagInspectorTitle=$('diagInspectorTitle'),diagInspectorHelp=$('diagInspectorHelp'),diagTruthLabel=$('diagTruthLabel'),diagExpectedMusic=$('diagExpectedMusic'),diagUserNote=$('diagUserNote'),diagApplyBtn=$('diagApplyBtn'),diagFindCanvasBtn=$('diagFindCanvasBtn'),diagPlayBtn=$('diagPlayBtn'),diagWavBtn=$('diagWavBtn'),diagFeatureDump=$('diagFeatureDump');
+let diagnosticsCapture=false,diagnosticEvents=[],diagnosticSelectedId=null,diagnosticSessionId=null,diagnosticStartedAt=null;
+
+function diagSave(){
+  try{localStorage.setItem('realityFilter.diagnostics.v1',JSON.stringify({diagnosticEvents,diagnosticSelectedId,diagnosticSessionId,diagnosticStartedAt}))}catch(_){}
+}
+function diagLoad(){
+  try{const d=JSON.parse(localStorage.getItem('realityFilter.diagnostics.v1')||'null');if(d){diagnosticEvents=Array.isArray(d.diagnosticEvents)?d.diagnosticEvents:[];diagnosticSelectedId=d.diagnosticSelectedId||null;diagnosticSessionId=d.diagnosticSessionId||null;diagnosticStartedAt=d.diagnosticStartedAt||null}}catch(_){}
+}
+diagLoad();
+
+function diagnosticLabelName(v){return({'':'Unreviewed',correct:'Correct',bell:'Bell / resonant strike',voice:'Voice / sung vowel',impact:'Impact / clatter',low:'Low thump / rumble',fan:'Fan / airflow / HVAC','music-note':'Musical note','music-chord':'Musical chord',other:'Other'})[v]||v}
+function snapshotEventForDiagnostics(ev){
+  const f=ev.features||{},fp=eventFingerprint(ev);
+  return{recordId:(diagnosticSessionId||'session')+'-'+ev.id,sourceEventId:ev.id,capturedAtMs:Math.round(ev.end||timelineNow),appGuess:{type:ev.type,label:ev.label,ambientTag:ev.ambientTag||null},userTruth:'',expectedMusic:'',userNote:'',
+    features:{durationMs:Math.round(f.dur||((ev.end||timelineNow)-ev.start)),lowRatio:Number((f.lr||0).toFixed(4)),midRatio:Number((f.mr||0).toFixed(4)),highRatio:Number((f.hr||0).toFixed(4)),centroidHz:Math.round(f.cent||0),spectralFlatness:Number((f.flat||0).toFixed(5)),spectralProminence:Number((f.prom||0).toFixed(3)),pitchConfidence:Number((f.pconf||0).toFixed(4)),pitchHz:Number((ev.pitchHz||0).toFixed(2)),pitchSpreadHz:Number((f.pitchSpread||0).toFixed(2)),attackTransient:Number((ev.attackTransient||0).toFixed(6)),maxTransient:Number((ev.maxTransient||0).toFixed(6))},
+    fingerprint:fp?fp.map(x=>Number(x.toFixed(6))):null}
+}
+function recordDiagnosticEvent(ev){const r=snapshotEventForDiagnostics(ev);diagnosticEvents.push(r);if(diagnosticEvents.length>250)diagnosticEvents.shift();diagSave();if(diagnosticsPanel.classList.contains('open'))renderDiagnostics()}
+const diagOriginalFinishEvent=finishEvent;
+finishEvent=function(now){if(!activeEvent)return;const ev=activeEvent;diagOriginalFinishEvent(now);if(diagnosticsCapture)recordDiagnosticEvent(ev)};
+
+function currentMicInfo(){const tr=stream?.getAudioTracks?.()[0],settings=tr?.getSettings?.()||{};return{label:tr?.label||'Unknown microphone',settings}}
+function diagnosticRoomFingerprint(){if(!noiseProfile||!ac||!analyser)return null;const a=new Uint8Array(noiseProfile.length);for(let i=0;i<a.length;i++)a[i]=Math.max(0,Math.min(255,Math.round(noiseProfile[i])));return spectralFingerprint(a).map(x=>Number(x.toFixed(6)))}
+function buildFeedbackPacket(){const mic=currentMicInfo();return{schema:'reality-filter-feedback-v1',build:'2.5',createdAt:new Date().toISOString(),session:{id:diagnosticSessionId,startedAt:diagnosticStartedAt,eventCount:diagnosticEvents.length,capturing:diagnosticsCapture},environment:{userAgent:navigator.userAgent,platform:navigator.platform,language:navigator.language,sampleRate:ac?.sampleRate||null,fftSize:analyser?.fftSize||null,micLabel:mic.label,micSettings:mic.settings,viewport:{width:innerWidth,height:innerHeight,devicePixelRatio:devicePixelRatio||1}},settings:{ambientNoiseRemoval:noiseEnabled,noiseRejection:Number(noiseStrength.value),inputSensitivity:Number(sensitivity.value),musicMode,waveSpeed:Number(waveSpeed.value),roomBaselineDb:noiseProfileRms?Number((20*Math.log10(Math.max(noiseProfileRms,1e-6))).toFixed(2)):null,roomFingerprint:diagnosticRoomFingerprint(),learnedRoomSources:ambientProfiles.map(p=>({name:p.name,hidden:!!p.hidden,fingerprint:p.fingerprint}))},events:diagnosticEvents}}
+function correctionSummary(){const reviewed=diagnosticEvents.filter(e=>e.userTruth),m=reviewed.filter(e=>e.userTruth&&e.userTruth!=='correct'&&e.userTruth!==e.appGuess.type),confusion={};for(const e of m){const k=e.appGuess.type+' → '+e.userTruth;confusion[k]=(confusion[k]||0)+1}return{reviewed:reviewed.length,mismatches:m.length,confusion}}
+function selectedDiagnostic(){return diagnosticEvents.find(x=>x.recordId===diagnosticSelectedId)||null}
+function renderDiagnosticInspector(){const r=selectedDiagnostic();if(!r){diagInspectorTitle.textContent='Select an event';diagInspectorHelp.textContent='Start capture, make sounds, then select a row. Corrections are the highest-value data for improving the classifier.';diagTruthLabel.value='';diagExpectedMusic.value='';diagUserNote.value='';diagFeatureDump.textContent='No event selected.';return}diagInspectorTitle.textContent='Event '+r.sourceEventId+' · '+r.appGuess.label;diagInspectorHelp.textContent=r.appGuess.ambientTag?'Matched learned room source: '+r.appGuess.ambientTag:'Review the app guess and tell me what actually made the sound.';diagTruthLabel.value=r.userTruth||'';diagExpectedMusic.value=r.expectedMusic||'';diagUserNote.value=r.userNote||'';diagFeatureDump.textContent=JSON.stringify({appGuess:r.appGuess,features:r.features,fingerprint:r.fingerprint},null,2)}
+function renderDiagnostics(){
+  const mic=currentMicInfo(),corr=correctionSummary();diagSessionState.textContent=diagnosticsCapture?'Capturing':'Stopped';diagSessionMeta.textContent=diagnosticEvents.length+' event'+(diagnosticEvents.length===1?'':'s')+' · '+(diagnosticSessionId||'no session yet');
+  diagAudioState.textContent=ac?ac.sampleRate+' Hz':'No mic';diagAudioMeta.textContent=ac?mic.label+' · FFT '+(analyser?.fftSize||'—'):'Start listening first.';diagCorrectionState.textContent=String(corr.reviewed);
+  const pairs=Object.entries(corr.confusion).sort((a,b)=>b[1]-a[1]).slice(0,3).map(([k,v])=>k+' ×'+v);diagCorrectionMeta.textContent=pairs.length?corr.mismatches+' mismatch'+(corr.mismatches===1?'':'es')+' · '+pairs.join(', '):'No classifier disagreements recorded yet.';
+  diagRoomState.textContent=noiseProfile?'Calibrated':'Uncalibrated';diagRoomMeta.textContent=ambientProfiles.length+' learned room source'+(ambientProfiles.length===1?'':'s')+(noiseProfileRms?' · baseline '+(20*Math.log10(Math.max(noiseProfileRms,1e-6))).toFixed(0)+' dB-ish':'');
+  diagCaptureBtn.classList.toggle('on',diagnosticsCapture);diagCaptureBtn.textContent=diagnosticsCapture?'■ Stop capture':'● Start capture';diagTableBody.innerHTML='';
+  [...diagnosticEvents].reverse().forEach((r,idx)=>{const tr=document.createElement('tr');if(r.recordId===diagnosticSelectedId)tr.classList.add('selected');tr.innerHTML='<td>'+(diagnosticEvents.length-idx)+'</td><td>'+escapeHtml(r.appGuess.label)+'</td><td>'+escapeHtml(diagnosticLabelName(r.userTruth))+'</td><td>'+(r.features.durationMs/1000).toFixed(2)+'s</td><td>'+r.features.centroidHz+' Hz</td><td>'+(r.features.pitchHz?r.features.pitchHz.toFixed(1)+' Hz':'—')+'</td><td>'+r.features.maxTransient.toFixed(3)+'</td><td>'+r.features.spectralFlatness.toFixed(3)+'</td><td>'+escapeHtml(r.appGuess.ambientTag||'—')+'</td>';tr.onclick=()=>{diagnosticSelectedId=r.recordId;renderDiagnostics()};diagTableBody.appendChild(tr)});
+  renderDiagnosticInspector()
+}
+diagnosticsBtn.onclick=()=>{diagnosticsPanel.classList.add('open');renderDiagnostics()};diagCloseBtn.onclick=()=>diagnosticsPanel.classList.remove('open');
+diagCaptureBtn.onclick=()=>{if(!diagnosticsCapture){diagnosticsCapture=true;if(!diagnosticSessionId){diagnosticSessionId='rf-'+Date.now().toString(36);diagnosticStartedAt=new Date().toISOString()}showToast('Diagnostics capture started','Feature data will be logged for each completed sound event. No raw audio is added to the report.',3200)}else{diagnosticsCapture=false;showToast('Diagnostics capture stopped',diagnosticEvents.length+' events are ready for review/export.',2800)}diagSave();renderDiagnostics()};
+diagApplyBtn.onclick=()=>{const r=selectedDiagnostic();if(!r)return;r.userTruth=diagTruthLabel.value;r.expectedMusic=diagExpectedMusic.value.trim();r.userNote=diagUserNote.value.trim();diagSave();renderDiagnostics();showToast('Correction saved','This disagreement will be included in the feedback packet.',2200)};
+diagClearBtn.onclick=()=>{diagnosticEvents=[];diagnosticSelectedId=null;diagnosticSessionId=diagnosticsCapture?'rf-'+Date.now().toString(36):null;diagnosticStartedAt=diagnosticsCapture?new Date().toISOString():null;diagSave();renderDiagnostics()};
+diagUseSelectionBtn.onclick=()=>{const es=selectedEvents();if(!es.length){showToast('No canvas selection','Pause live, select a sound event, then try again.',2600);return}const ev=es[0];let r=diagnosticEvents.find(x=>x.sourceEventId===ev.id);if(!r){r=snapshotEventForDiagnostics(ev);diagnosticEvents.push(r);diagSave()}diagnosticSelectedId=r.recordId;renderDiagnostics()};
+diagFindCanvasBtn.onclick=()=>{const r=selectedDiagnostic();if(!r)return;const ev=events.find(e=>e.id===r.sourceEventId);if(!ev){showToast('Event left the canvas','Its feature record remains, but the visual event already scrolled away.',3000);return}if(!paused)setPaused(true);events.forEach(e=>e.selected=false);ev.selected=true;diagnosticsPanel.classList.remove('open');showToast('Event selected on canvas','Right-click it for sound-event tools.',2500)};
+diagPlayBtn.onclick=()=>{const r=selectedDiagnostic();if(!r)return;const ev=events.find(e=>e.id===r.sourceEventId);if(ev){if(!paused)setPaused(true);events.forEach(e=>e.selected=false);ev.selected=true;playSelected()}else showToast('Audio no longer buffered','Reproduce the sound and pause within about 20 seconds if you need its audio.',3000)};
+
+function diagWavBlob(samples,sampleRate){const buf=new ArrayBuffer(44+samples.length*2),v=new DataView(buf),write=(o,t)=>{for(let i=0;i<t.length;i++)v.setUint8(o+i,t.charCodeAt(i))};write(0,'RIFF');v.setUint32(4,36+samples.length*2,true);write(8,'WAVE');write(12,'fmt ');v.setUint32(16,16,true);v.setUint16(20,1,true);v.setUint16(22,1,true);v.setUint32(24,sampleRate,true);v.setUint32(28,sampleRate*2,true);v.setUint16(32,2,true);v.setUint16(34,16,true);write(36,'data');v.setUint32(40,samples.length*2,true);let o=44;for(let i=0;i<samples.length;i++,o+=2){const x=Math.max(-1,Math.min(1,samples[i]));v.setInt16(o,x<0?x*0x8000:x*0x7fff,true)}return new Blob([buf],{type:'audio/wav'})}
+function diagDownload(blob,name){const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500)}
+diagWavBtn.onclick=()=>{const r=selectedDiagnostic();if(!r)return;const ev=events.find(e=>e.id===r.sourceEventId);if(!ev){showToast('Audio no longer buffered','WAV export requires the event to still be in the rolling audio buffer.',3000);return}if(!paused)setPaused(true);events.forEach(e=>e.selected=false);ev.selected=true;const w=selectedAudioWindow();if(!w)return showToast('No audio window','Could not recover this event from the rolling buffer.',2600);diagDownload(diagWavBlob(w.samples,ac.sampleRate),'reality-filter-event-'+r.sourceEventId+'-'+r.appGuess.type+'.wav')};
+diagExportBtn.onclick=()=>{const p=buildFeedbackPacket();diagDownload(new Blob([JSON.stringify(p,null,2)],{type:'application/json'}),'reality-filter-feedback-'+(diagnosticSessionId||Date.now())+'.json');showToast('Feedback JSON exported','Upload that file into ChatGPT and it can be compared directly against the classifier features.',3500)};
+function compactReport(){const p=buildFeedbackPacket(),corr=correctionSummary(),reviewed=p.events.filter(e=>e.userTruth),lines=['Reality Filter feedback · build '+p.build,'Session: '+(p.session.id||'none')+' · events '+p.events.length+' · reviewed '+corr.reviewed+' · mismatches '+corr.mismatches,'Audio: '+(p.environment.sampleRate||'—')+' Hz · FFT '+(p.environment.fftSize||'—')+' · '+p.environment.micLabel,'Settings: noise='+p.settings.ambientNoiseRemoval+' reject='+p.settings.noiseRejection+' sensitivity='+p.settings.inputSensitivity+' music='+p.settings.musicMode+' speed='+p.settings.waveSpeed,'Learned room sources: '+(p.settings.learnedRoomSources.map(x=>x.name+(x.hidden?' [hidden]':'')).join(', ')||'none')];const conf=Object.entries(corr.confusion).sort((a,b)=>b[1]-a[1]);if(conf.length)lines.push('Confusions: '+conf.map(([k,v])=>k+' ×'+v).join('; '));if(reviewed.length){lines.push('','Reviewed events:');for(const e of reviewed.slice(-30))lines.push('#'+e.sourceEventId+' app='+e.appGuess.type+' truth='+e.userTruth+(e.expectedMusic?' expected='+e.expectedMusic:'')+' center='+e.features.centroidHz+'Hz pitch='+e.features.pitchHz+'Hz flat='+e.features.spectralFlatness+' transient='+e.features.maxTransient+(e.userNote?' note="'+e.userNote+'"':''))}return lines.join('\n')}
+diagCopyBtn.onclick=async()=>{try{await navigator.clipboard.writeText(compactReport());showToast('Report copied','Paste it directly into ChatGPT. Use Download JSON for the full feature packet.',3200)}catch(_){showToast('Clipboard blocked','Use Download JSON instead.',2600)}};
 
 async function refreshBuild(){
   updateBtn.disabled=true;updateBtn.textContent='Checking…';showToast('Build updater','Checking the stable museum build…',0);
