@@ -1,13 +1,13 @@
 {
   "name": "Reality Filter Museum Exhibit",
   "channel": "stable",
-  "version": "2.1",
+  "version": "2.4",
   "published": "2026-09-18",
   "files": [
     {
       "path": "index.html",
       "url": "https://raw.githubusercontent.com/ijustcreate/animal-audio-playground/main/reality-filter/index.html",
-      "sha256": "b114d9a70a20a3bfeb14e90e3e9e40c507773ee85016fd0b64d3efdb9eaf20a1"
+      "sha256": "2e610b656a066c24f78db0724f79061787484df50e5ae7b73a64a3fcb1d3035d"
     }
   ]
 }
